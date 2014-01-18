@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour {
 	}
 	public void notifyPieceDeselected(Piece piece) {
 		selectedPiece = null;
-		//update valid squares
+		updateValidGrids ();
 	}
 
 	void updateValidGrids() {

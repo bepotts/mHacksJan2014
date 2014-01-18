@@ -13,6 +13,8 @@ public class Move : MonoBehaviour
     // 2 - Store the movement
     private Vector2 movement;
 
+	private Vector2 destination;
+
     private int i_direction;
     private int j_direction;
 
@@ -40,12 +42,119 @@ public class Move : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 5 - Move the game object    
-        
+		float currentX = renderer.bounds.center.x / 8;
+		float currentY = renderer.bounds.center.y / 8;
+
+		if (i_direction > 0 && j_direction == 0)
+		{
+			//moving right
+			if (currentX >= destination.x) {
+				rigidbody2D.velocity = new Vector2(0, 0);
+				//snap it to the exact destination
+				destination.x = destination.x * 8;
+				destination.y = destination.y * 8;
+				transform.position = destination;
+				i_direction = 0;
+				j_direction = 0;
+			}
+		}
+		else if (i_direction > 0 && j_direction < 0)
+		{
+			//moving bottom right
+			if (currentX >= destination.x && currentY <= destination.y) {
+				rigidbody2D.velocity = new Vector2(0, 0);
+				//snap it to the exact destination
+				destination.x = destination.x * 8;
+				destination.y = destination.y * 8;
+				transform.position = destination;
+				i_direction = 0;
+				j_direction = 0;
+			}
+		}
+		else if (i_direction == 0 && j_direction < 0)
+		{
+			//moving bottom
+			if (currentY <= destination.y) {
+				rigidbody2D.velocity = new Vector2(0, 0);
+				//snap it to the exact destination
+				destination.x = destination.x * 8;
+				destination.y = destination.y * 8;
+				Debug.Log ("Snapping to X: " + destination.x + " Y: " + destination.y);
+				transform.position = destination;
+				i_direction = 0;
+				j_direction = 0;
+			}
+		}
+		else if (i_direction < 0 && j_direction < 0)
+		{
+			//moving bottom left
+			if (currentX <= destination.x && currentY <= destination.y) {
+				rigidbody2D.velocity = new Vector2(0, 0);
+				//snap it to the exact destination
+				destination.x = destination.x * 8;
+				destination.y = destination.y * 8;
+				transform.position = destination;
+				i_direction = 0;
+				j_direction = 0;
+			}
+		}
+		else if (i_direction < 0 && j_direction == 0)
+		{
+			//moving left
+			if (currentX <= destination.x) {
+				rigidbody2D.velocity = new Vector2(0, 0);
+				//snap it to the exact destination
+				destination.x = destination.x * 8;
+				destination.y = destination.y * 8;
+				transform.position = destination;
+				i_direction = 0;
+				j_direction = 0;
+			}
+		}
+		else if (i_direction < 0 && j_direction > 0)
+		{
+			//moving top left
+			if (currentX <= destination.x && currentY >= destination.y) {
+				rigidbody2D.velocity = new Vector2(0, 0);
+				//snap it to the exact destination
+				destination.x = destination.x * 8;
+				destination.y = destination.y * 8;
+				transform.position = destination;
+				i_direction = 0;
+				j_direction = 0;
+			}
+		}
+		else if (i_direction == 0 && j_direction > 0)
+		{
+			//moving top
+			if (currentY >= destination.y) {
+				rigidbody2D.velocity = new Vector2(0, 0);
+				//snap it to the exact destination
+				destination.x = destination.x * 8;
+				destination.y = destination.y * 8;
+				transform.position = destination;
+				i_direction = 0;
+				j_direction = 0;
+			}
+		}
+		else if (i_direction > 0 && j_direction > 0)
+		{
+			//moving top right
+			if (currentX >= destination.x && currentY >= destination.y) {
+				rigidbody2D.velocity = new Vector2(0, 0);
+				//snap it to the exact destination
+				destination.x = destination.x * 8;
+				destination.y = destination.y * 8;
+				transform.position = destination;
+				i_direction = 0;
+				j_direction = 0;
+			}
+		}
     }
 
     public void move (Vector2 destination)
     {
+		this.destination = destination;
         float startX = renderer.bounds.center.x;
         float startY = renderer.bounds.center.y;
         Debug.Log("Moving piece from start X: " + startX + " Y: " + startY);
