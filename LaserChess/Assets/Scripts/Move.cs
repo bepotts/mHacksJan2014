@@ -39,7 +39,7 @@ public class Move : MonoBehaviour
         // 3 - Retrieve axis information
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
-        rigidbody2D.velocity = new Vector2(10, 0);
+        rigidbody2D.velocity = new Vector2(9, 0);
     }
 
     void FixedUpdate()
