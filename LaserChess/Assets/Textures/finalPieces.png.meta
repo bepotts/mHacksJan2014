@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 49d31a5fb8d3fe844ac30c2ae8c291fd
+guid: 3c2c5fadb88213e418efb8416b2afd2e
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -45,94 +45,94 @@ TextureImporter:
     compressionQuality: 50
   spriteSheet:
     sprites:
-    - name: tanDiag
+    - name: FtanDiag
       rect:
         serializedVersion: 2
-        x: 37
-        y: 203
-        width: 112
-        height: 116
+        x: 16
+        y: 433
+        width: 270
+        height: 268
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: brownDiag
+    - name: FBrownDiag
       rect:
         serializedVersion: 2
-        x: 37
-        y: 52
-        width: 112
-        height: 115
+        x: 16
+        y: 136
+        width: 270
+        height: 259
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: tanSquare
+    - name: FTanSquare
       rect:
         serializedVersion: 2
-        x: 167
-        y: 208
-        width: 96
-        height: 103
+        x: 304
+        y: 435
+        width: 268
+        height: 265
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: brownSquare
+    - name: FBrownSquare
       rect:
         serializedVersion: 2
-        x: 167
-        y: 56
-        width: 96
-        height: 104
+        x: 305
+        y: 132
+        width: 262
+        height: 261
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: tanSplitter
+    - name: FTanLaser
       rect:
         serializedVersion: 2
-        x: 286
-        y: 210
-        width: 98
-        height: 94
+        x: 586
+        y: 432
+        width: 267
+        height: 268
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: brownSplitter
+    - name: FBrownLaser
       rect:
         serializedVersion: 2
-        x: 286
-        y: 59
-        width: 99
-        height: 94
+        x: 588
+        y: 136
+        width: 260
+        height: 255
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: tanTriangle
+    - name: FTanSplitter
       rect:
         serializedVersion: 2
-        x: 416
-        y: 210
-        width: 99
-        height: 88
+        x: 871
+        y: 432
+        width: 262
+        height: 268
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: brownTriangle
+    - name: FBrownSplitter
       rect:
         serializedVersion: 2
-        x: 416
-        y: 61
-        width: 99
-        height: 86
+        x: 869
+        y: 127
+        width: 267
+        height: 268
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: tanKing
+    - name: FTanKing
       rect:
         serializedVersion: 2
-        x: 544
-        y: 216
-        width: 96
-        height: 88
+        x: 1150
+        y: 441
+        width: 267
+        height: 259
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: brownKing
+    - name: FBrownKing
       rect:
         serializedVersion: 2
-        x: 544
-        y: 62
-        width: 96
-        height: 91
+        x: 1152
+        y: 129
+        width: 262
+        height: 266
       alignment: 0
       pivot: {x: .5, y: .5}
   spritePackingTag: 
