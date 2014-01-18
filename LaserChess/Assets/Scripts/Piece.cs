@@ -33,7 +33,8 @@ public class Piece : MonoBehaviour {
 	}
 
 	public void move(Vector2 vector) {
-		//move
+        Move moveScript = GetComponent<Move>();
+        moveScript.move(vector);
 	}
 
 	// Update is called once per frame
