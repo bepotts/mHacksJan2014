@@ -152,6 +152,8 @@ MonoBehaviour:
   texture: {fileID: 21300004, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300004, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 1
+  side: Tan
 --- !u!1 &61134771
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +232,8 @@ MonoBehaviour:
   texture: {fileID: 21300000, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300000, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Tan
 --- !u!1 &103985361
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +312,8 @@ MonoBehaviour:
   texture: {fileID: 21300014, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300014, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 1
+  side: Brown
 --- !u!1 &123539818
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +392,8 @@ MonoBehaviour:
   texture: {fileID: 21300010, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300010, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Brown
 --- !u!1001 &221681229
 Prefab:
   m_ObjectHideFlags: 0
@@ -668,6 +676,8 @@ MonoBehaviour:
   texture: {fileID: 21300002, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300002, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Tan
 --- !u!1001 &426534036
 Prefab:
   m_ObjectHideFlags: 0
@@ -790,6 +800,8 @@ MonoBehaviour:
   texture: {fileID: 21300012, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300012, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Brown
 --- !u!1 &483200038
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,6 +880,8 @@ MonoBehaviour:
   texture: {fileID: 21300000, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300000, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Tan
 --- !u!1 &562928656
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,6 +976,8 @@ MonoBehaviour:
   texture: {fileID: 21300018, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300018, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 1
+  side: Brown
 --- !u!1001 &621710508
 Prefab:
   m_ObjectHideFlags: 0
@@ -1096,6 +1112,8 @@ MonoBehaviour:
   texture: {fileID: 21300010, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300010, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Brown
 --- !u!1001 &715957056
 Prefab:
   m_ObjectHideFlags: 0
@@ -1214,6 +1232,8 @@ MonoBehaviour:
   texture: {fileID: 21300010, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300010, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Brown
 --- !u!1001 &776667728
 Prefab:
   m_ObjectHideFlags: 0
@@ -1321,6 +1341,8 @@ MonoBehaviour:
   texture: {fileID: 21300000, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300000, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Tan
 --- !u!61 &785095107
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1498,6 +1520,8 @@ MonoBehaviour:
   texture: {fileID: 21300002, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300002, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Tan
 --- !u!1001 &871731565
 Prefab:
   m_ObjectHideFlags: 0
@@ -1879,6 +1903,8 @@ MonoBehaviour:
   texture: {fileID: 21300008, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300008, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 1
+  side: Tan
 --- !u!1 &1381383008
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,6 +1983,8 @@ MonoBehaviour:
   texture: {fileID: 21300010, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300010, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Brown
 --- !u!1001 &1427997332
 Prefab:
   m_ObjectHideFlags: 0
@@ -2079,6 +2107,8 @@ MonoBehaviour:
   texture: {fileID: 21300006, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300006, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Tan
 --- !u!1 &1565454048
 GameObject:
   m_ObjectHideFlags: 0
@@ -2157,6 +2187,8 @@ MonoBehaviour:
   texture: {fileID: 21300012, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300012, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Brown
 --- !u!1 &1578404529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2235,6 +2267,8 @@ MonoBehaviour:
   texture: {fileID: 21300000, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300000, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Tan
 --- !u!1 &1580786424
 GameObject:
   m_ObjectHideFlags: 0
@@ -2382,6 +2416,14 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: fb5b95bf3587cb348bbb251f66d5bed6, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: fb5b95bf3587cb348bbb251f66d5bed6, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb5b95bf3587cb348bbb251f66d5bed6, type: 2}
   m_RootGameObject: {fileID: 1549288420}
@@ -2465,6 +2507,8 @@ MonoBehaviour:
   texture: {fileID: 21300010, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300010, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Brown
 --- !u!1001 &1790873943
 Prefab:
   m_ObjectHideFlags: 0
@@ -2587,6 +2631,8 @@ MonoBehaviour:
   texture: {fileID: 21300016, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300016, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Brown
 --- !u!1001 &1819848289
 Prefab:
   m_ObjectHideFlags: 0
@@ -2705,6 +2751,8 @@ MonoBehaviour:
   texture: {fileID: 21300000, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300000, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
+  cannotMove: 0
+  side: Tan
 --- !u!1001 &2081198832
 Prefab:
   m_ObjectHideFlags: 0
@@ -2835,6 +2883,18 @@ Prefab:
     - target: {fileID: 100000, guid: d3bd42e3eaa5c944e9588a7a51abb4df, type: 2}
       propertyPath: m_Name
       value: tanDiag5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d3bd42e3eaa5c944e9588a7a51abb4df, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d3bd42e3eaa5c944e9588a7a51abb4df, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d3bd42e3eaa5c944e9588a7a51abb4df, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d3bd42e3eaa5c944e9588a7a51abb4df, type: 2}
