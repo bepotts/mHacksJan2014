@@ -688,6 +688,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 562928657}
   - 212: {fileID: 562928658}
+  - 50: {fileID: 562928660}
+  - 114: {fileID: 562928659}
   m_Layer: 0
   m_Name: brownKing
   m_TagString: Untagged
@@ -730,6 +732,32 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_Sprite: {fileID: 21300018, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &562928659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 562928656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f98292bb79890344807c9267b4379b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &562928660
+Rigidbody2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 562928656}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 0
+  m_FixedAngle: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
 --- !u!1001 &621710508
 Prefab:
   m_ObjectHideFlags: 0
