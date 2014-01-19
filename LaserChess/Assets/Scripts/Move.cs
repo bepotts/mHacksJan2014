@@ -15,6 +15,8 @@ public class Move : MonoBehaviour
 
 	private Vector2 destination;
 
+	private GameController controller;
+
     private int i_direction;
     private int j_direction;
 
@@ -38,6 +40,8 @@ public class Move : MonoBehaviour
 
     void Start()
     {
+		GameObject chessBoard = GameObject.Find ("0 - Chessboard");
+		controller = chessBoard.GetComponent<GameController> ();
     }
 
     void FixedUpdate()
@@ -56,6 +60,7 @@ public class Move : MonoBehaviour
 				transform.position = destination;
 				i_direction = 0;
 				j_direction = 0;
+				doneMoving ();
 			}
 		}
 		else if (i_direction > 0 && j_direction < 0)
@@ -69,6 +74,7 @@ public class Move : MonoBehaviour
 				transform.position = destination;
 				i_direction = 0;
 				j_direction = 0;
+				doneMoving ();
 			}
 		}
 		else if (i_direction == 0 && j_direction < 0)
@@ -83,6 +89,7 @@ public class Move : MonoBehaviour
 				transform.position = destination;
 				i_direction = 0;
 				j_direction = 0;
+				doneMoving ();
 			}
 		}
 		else if (i_direction < 0 && j_direction < 0)
@@ -96,6 +103,7 @@ public class Move : MonoBehaviour
 				transform.position = destination;
 				i_direction = 0;
 				j_direction = 0;
+				doneMoving ();
 			}
 		}
 		else if (i_direction < 0 && j_direction == 0)
@@ -109,6 +117,7 @@ public class Move : MonoBehaviour
 				transform.position = destination;
 				i_direction = 0;
 				j_direction = 0;
+				doneMoving ();
 			}
 		}
 		else if (i_direction < 0 && j_direction > 0)
@@ -122,6 +131,7 @@ public class Move : MonoBehaviour
 				transform.position = destination;
 				i_direction = 0;
 				j_direction = 0;
+				doneMoving ();
 			}
 		}
 		else if (i_direction == 0 && j_direction > 0)
@@ -135,6 +145,7 @@ public class Move : MonoBehaviour
 				transform.position = destination;
 				i_direction = 0;
 				j_direction = 0;
+				doneMoving ();
 			}
 		}
 		else if (i_direction > 0 && j_direction > 0)
@@ -148,12 +159,14 @@ public class Move : MonoBehaviour
 				transform.position = destination;
 				i_direction = 0;
 				j_direction = 0;
+				doneMoving ();
 			}
 		}
     }
 
     public void move (Vector2 destination)
     {
+		controller.playerCantSelect = true;
 		this.destination = destination;
         float startX = renderer.bounds.center.x;
         float startY = renderer.bounds.center.y;
@@ -205,4 +218,9 @@ public class Move : MonoBehaviour
             rigidbody2D.velocity = new Vector2(speed, speed);
         }
     }
+
+	public void doneMoving() {
+		Debug.Log ("Done moving");
+		controller.signalTurnOver ();
+	}
 }

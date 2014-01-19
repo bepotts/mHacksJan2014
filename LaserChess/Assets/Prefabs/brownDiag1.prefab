@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.9700098, y: 4.75000477, z: .013671875}
+  m_LocalPosition: {x: -11.9499512, y: 4.85291338, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,7 +54,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Size: {x: 2.69999981, y: 2.69999981}
   m_Center: {x: -1.1920929e-07, y: 1.1920929e-07}
 --- !u!114 &11400000
@@ -80,11 +80,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975b73fa2900c1947bfd08c2a5d9dfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   texture: {fileID: 21300010, guid: 3c2c5fadb88213e418efb8416b2afd2e, type: 3}
   selectedTexture: {fileID: 21300010, guid: 9d55a1b5a5ef6ab438613b4b396c63a0, type: 3}
   isSelected: 0
   cannotMove: 0
+  markedForDeath: 0
   side: Brown
+  explosionParticle: {fileID: 19800000, guid: c09d349e8bc62ba4aa4415c5be10a6c1, type: 2}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

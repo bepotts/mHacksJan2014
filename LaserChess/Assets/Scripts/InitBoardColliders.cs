@@ -14,7 +14,7 @@ public class InitBoardColliders : MonoBehaviour {
 		float yScaledSize = (yUnscaledSize / 8);
 
 		BoxCollider2D collider = (BoxCollider2D) gameObject.AddComponent (typeof(BoxCollider2D));
-		collider.center = new Vector3(0, 0, 0);
+		collider.center = new Vector3(0, 0, -20);
 		collider.size = new Vector3 (xScaledSize * 2, xScaledSize * 2, 0);
 	}
 	

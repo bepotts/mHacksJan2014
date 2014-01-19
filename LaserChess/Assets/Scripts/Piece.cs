@@ -46,7 +46,10 @@ public class Piece : MonoBehaviour {
 	public void kill() {
 		initExplosion ();
 		transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + 30);
-		Destroy (this);
+		Destroy (gameObject);
+		if (type == PieceType.King) {
+
+		}
 		Debug.Log ("killed");
 	}
 
@@ -153,6 +156,9 @@ public class Piece : MonoBehaviour {
 	}
 
 	void OnMouseDown () {
+		if (chessBoard.playerCantSelect) {
+			return;
+		}
 		string currentTurn = chessBoard.tag;
 		if (currentTurn.Equals("TanTurn") && side.Equals ("Brown")) {
 			return;
