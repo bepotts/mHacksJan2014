@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 50: {fileID: 5000000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: brownSquare1
   m_TagString: Untagged
@@ -26,8 +27,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.8025818, y: -9.72528744, z: -2}
+  m_LocalRotation: {x: 0, y: 0, z: -.708527863, w: .705682874}
+  m_LocalPosition: {x: -33.8025818, y: -9.72528744, z: 2.01367188}
   m_LocalScale: {x: 2.50000024, y: 2.50000024, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -88,6 +89,18 @@ MonoBehaviour:
   markedForDeath: 0
   side: Brown
   explosionParticle: {fileID: 19800000, guid: c09d349e8bc62ba4aa4415c5be10a6c1, type: 2}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca95c4b9c538f7b4a96cb52b56f7ef8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationSpeed: 100
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
