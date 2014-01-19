@@ -15,15 +15,13 @@ public class GameController : MonoBehaviour {
 	private Piece selectedPiece;
 	private ArrayList validGrids;
 
-	private DrawLine laser;
-
 	// Use this for initialization
 	void Start () {
 		tag = "TanTurn";
 		selectedPiece = null;
 		validGrids = new ArrayList ();
 
-		laser = GameObject.Find ("brownBeam").GetComponent<DrawLine> ();
+
 		/*
 		tanPieces = new ArrayList ();
 		brownPieces = new ArrayList ();
@@ -46,7 +44,6 @@ public class GameController : MonoBehaviour {
 
 	public void notifyPieceSelected(Piece piece) {
 		if (selectedPiece != null) {
-			laser.fireLaser (selectedPiece.transform, piece.transform);
 			selectedPiece.deselectPiece(); 
 		}
 		selectedPiece = piece;
