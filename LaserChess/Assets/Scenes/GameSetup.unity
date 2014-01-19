@@ -1174,6 +1174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca95c4b9c538f7b4a96cb52b56f7ef8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotationSpeed: 100
 --- !u!1001 &621710508
 Prefab:
   m_ObjectHideFlags: 0
@@ -1303,6 +1304,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4150d1ea8bae5fa46a521840dca23b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beam: {fileID: 0}
+  origin: {fileID: 0}
+  destination: {fileID: 0}
+  lineDrawSpeed: .200000003
 --- !u!1 &690556874
 GameObject:
   m_ObjectHideFlags: 0
