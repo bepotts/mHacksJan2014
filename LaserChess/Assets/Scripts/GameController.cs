@@ -11,11 +11,18 @@ public class GameController : MonoBehaviour {
 
 	private System.Collections.ArrayList brownPieces;
 	*/
+	private static float NORTH = 0f;
+	private static float WEST = 90f;
+	private static float SOUTH = 180f;
+	private static float EAST = 270f;
 
 	private Piece selectedPiece;
 	private ArrayList validGrids;
 
-	private DrawLine laser;
+	GameObject brownLaser;
+	GameObject tanLaser;
+
+	private DrawLine beam;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +30,10 @@ public class GameController : MonoBehaviour {
 		selectedPiece = null;
 		validGrids = new ArrayList ();
 
-		laser = GameObject.Find ("brownBeam").GetComponent<DrawLine> ();
+		brownLaser = GameObject.Find ("brownLaser");
+
+		beam = GameObject.Find ("brownBeam").GetComponent<DrawLine> ();
+		getLaserPath (brownLaser.transform, brownLaser.transform.rotation.eulerAngles.z, new ArrayList());
 		/*
 		tanPieces = new ArrayList ();
 		brownPieces = new ArrayList ();
@@ -46,7 +56,7 @@ public class GameController : MonoBehaviour {
 
 	public void notifyPieceSelected(Piece piece) {
 		if (selectedPiece != null) {
-			laser.fireLaser (selectedPiece.transform, piece.transform);
+			beam.fireLaser (selectedPiece.transform, piece.transform);
 			selectedPiece.deselectPiece(); 
 		}
 		selectedPiece = piece;
@@ -108,10 +118,74 @@ public class GameController : MonoBehaviour {
 		return false;
 	}
 
+	//returns a list of transforms that make up a side's laser trajectory
+	ArrayList getLaserPath(Transform transform, float projectileDirection, ArrayList transforms) {
+		Debug.Log ("Firing raycast");
+		Vector3 origin = transform.position;
+		RaycastHit2D hit = fireRayCast (origin, projectileDirection);
+		if (hit) {
+			Debug.Log ("Hit " + hit.collider.name);
+			transforms.Add (hit.collider.transform);
+			Piece piece = hit.collider.transform.GetComponent<Piece> ();
+			if (piece.determineIfFatalHit(projectileDirection)) {
+				Debug.Log ("Piece killed");
+				//do nothing for now, will kill during the actual laser firing
+				return transforms;
+			}
+			if (piece.type == Piece.PieceType.Laser) {
+				//do nothing
+				return transforms;
+			}
+			if (piece.type == Piece.PieceType.Splitter) {
+				//handle splitter
+				Debug.Log ("Hit splitter");
+				return transforms;
+			}
+			float redirectedProjectile = piece.determineReflectedLaserPath(projectileDirection);
+			Debug.Log ("Got redirected projectile with angle: " + redirectedProjectile);
+			getLaserPath (hit.collider.transform, redirectedProjectile, transforms);
+		}
+		return transforms;
+	}
+
+	RaycastHit2D fireRayCast(Vector3 origin, float facing) {
+		if (Mathf.Abs (facing - EAST) < 2) {
+			Debug.Log ("Firing east");
+			//Facing in the positive X direction
+			//offset the origin from the originating piece so the raycast doesn't hit it
+			origin.x = origin.x + renderer.bounds.extents.x / 4;
+			Vector3 direction = new Vector3 (Screen.width, origin.y, origin.z);
+			return Physics2D.Raycast (origin, direction, float.MaxValue);
+		} else if (Mathf.Abs (facing - NORTH) < 2) {
+			Debug.Log ("Firing north");
+			//Facing in the positive Y direction
+			//offset the origin from the originating piece so the raycast doesn't hit it
+			origin.y = origin.y + renderer.bounds.extents.y / 4;
+			Vector3 direction = new Vector3 (origin.x, Screen.height, origin.z);
+			return Physics2D.Raycast (origin, direction, float.MaxValue);
+		} else if (Mathf.Abs (facing - SOUTH) < 2) {
+			Debug.Log ("Firing south");
+			//Facing in the negative Y direction
+			//offset the origin from the originating piece so the raycast doesn't hit it
+			origin.y = origin.y - renderer.bounds.extents.y / 4;
+			Vector3 direction = new Vector3 (origin.x, -Screen.height, origin.z);
+			return Physics2D.Raycast (origin, direction, float.MaxValue);
+		}
+		else {
+			Debug.Log ("Firing west");
+			//facing in the negative X direction
+			//offset the origin from the originating piece so the raycast doesn't hit it
+			origin.x = origin.x - renderer.bounds.extents.x / 4;
+			Vector3 direction = new Vector3 (-Screen.width, origin.y, origin.z);
+			return Physics2D.Raycast (origin, direction, float.MaxValue);
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
 	void OnMouseDown ()
 	{
 		Vector2 grid = getCenterOfGridAtMouse ();
