@@ -58,6 +58,10 @@ public class Rotate : MonoBehaviour {
 	
 	}
 
+	void OnMouseDown() {
+		orgionalPosition = transform.rotation;
+	}
+
     void OnMouseDrag()
     {
 		if (controller.playerCantSelect) {
@@ -161,7 +165,6 @@ public class Rotate : MonoBehaviour {
 		float width = renderer.bounds.extents.x;
 		float height = renderer.bounds.extents.y;
 		if (rawX > pieceX - width && rawX < pieceX + width && rawY > pieceY - height && rawY < pieceY + height) {
-			piece.deselectPiece();
 			return;
 		}
 		else {
