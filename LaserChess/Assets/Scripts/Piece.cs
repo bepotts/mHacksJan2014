@@ -72,6 +72,22 @@ public class Piece : MonoBehaviour {
 		return 0;
 	}
 
+	//Only call this method on splitter types
+	public float determineSplitLaserPath(float incomingDirection) {
+		float facing = transform.rotation.eulerAngles.z;
+		if ((facing < 2 || facing - 180 < 2) && (incomingDirection < 2 || incomingDirection - 180 < 2)) {
+			float splitDirection = (incomingDirection + 270) % 360;
+			Debug.Log ("Creating split laser path by subtracting 90, new direction: " + splitDirection);
+			return splitDirection;
+		}
+		else {
+			//is at the 0 or 180 degree position
+			float splitDirection = (incomingDirection + 90) % 360;
+			Debug.Log ("Creating split laser path by adding 90, new direction: " + splitDirection);
+			return splitDirection;
+		}
+	}
+
 	public bool determineIfFatalHit(float incomingDirection) {
 		int facing = (int)transform.rotation.eulerAngles.z;
 		switch (type)

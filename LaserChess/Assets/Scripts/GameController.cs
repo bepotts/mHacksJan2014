@@ -33,7 +33,8 @@ public class GameController : MonoBehaviour {
 		brownLaser = GameObject.Find ("brownLaser");
 
 		beam = GameObject.Find ("brownBeam").GetComponent<DrawLine> ();
-		getLaserPath (brownLaser.transform, brownLaser.transform.rotation.eulerAngles.z, new ArrayList());
+
+		fireLaser ();
 		/*
 		tanPieces = new ArrayList ();
 		brownPieces = new ArrayList ();
@@ -56,7 +57,7 @@ public class GameController : MonoBehaviour {
 
 	public void notifyPieceSelected(Piece piece) {
 		if (selectedPiece != null) {
-			beam.fireLaser (selectedPiece.transform, piece.transform);
+
 			selectedPiece.deselectPiece(); 
 		}
 		selectedPiece = piece;
@@ -118,6 +119,13 @@ public class GameController : MonoBehaviour {
 		return false;
 	}
 
+	//Fires the laser by traversing a list of transform objects. The list can be multiple levels deep, with each 
+	//level being a split-path created from a splitter piece.
+	void fireLaser() {
+		ArrayList transforms = getLaserPath (brownLaser.transform, brownLaser.transform.rotation.eulerAngles.z, new ArrayList());
+		beam.fireLaser ((Transform)transforms [0], (Transform)transforms [1]);
+	}
+
 	//returns a list of transforms that make up a side's laser trajectory
 	ArrayList getLaserPath(Transform transform, float projectileDirection, ArrayList transforms) {
 		Debug.Log ("Firing raycast");
@@ -137,9 +145,12 @@ public class GameController : MonoBehaviour {
 				return transforms;
 			}
 			if (piece.type == Piece.PieceType.Splitter) {
-				//handle splitter
 				Debug.Log ("Hit splitter");
-				return transforms;
+				//get a new, sub array of transforms as a split path, and add it into the main path array
+				float splitDirection = piece.determineSplitLaserPath(projectileDirection);
+				ArrayList splitPath = getLaserPath(hit.collider.transform, splitDirection, new ArrayList());
+				Debug.Log ("Finished scoping split path");
+				transforms.Add (splitPath);
 			}
 			float redirectedProjectile = piece.determineReflectedLaserPath(projectileDirection);
 			Debug.Log ("Got redirected projectile with angle: " + redirectedProjectile);
