@@ -20,6 +20,8 @@ public class GameController : MonoBehaviour {
 	private Piece selectedPiece;
 	private ArrayList validGrids;
 
+	private bool laserFiring;
+
 	GameObject brownLaser;
 	GameObject tanLaser;
 
@@ -30,7 +32,7 @@ public class GameController : MonoBehaviour {
 		tag = "TanTurn";
 		selectedPiece = null;
 		validGrids = new ArrayList ();
-
+		laserFiring = false;
 		brownLaser = GameObject.Find ("brownLaser");
 
 		beam = GameObject.Find ("brownBeam").GetComponent<DrawLine> ();
@@ -58,7 +60,6 @@ public class GameController : MonoBehaviour {
 
 	public void notifyPieceSelected(Piece piece) {
 		if (selectedPiece != null) {
-
 			selectedPiece.deselectPiece(); 
 		}
 		selectedPiece = piece;
@@ -123,9 +124,12 @@ public class GameController : MonoBehaviour {
 	//Fires the laser by traversing a list of transform objects. The list can be multiple levels deep, with each 
 	//level being a split-path created from a splitter piece.
 	void fireLaser() {
-		ArrayList transforms = getLaserPath (brownLaser.transform, brownLaser.transform.rotation.eulerAngles.z, new ArrayList());
-		beam.fireLaser ((Transform)transforms [0], (Transform)transforms [1]);
+		ArrayList startingTransforms = new ArrayList ();
+		startingTransforms.Add (brownLaser.transform.position);
+		ArrayList transforms = getLaserPath (brownLaser.transform, brownLaser.transform.rotation.eulerAngles.z, startingTransforms);
+		beam.fireLaser (transforms);
 	}
+
 
 	//returns a list of transforms that make up a side's laser trajectory
 	ArrayList getLaserPath(Transform transform, float projectileDirection, ArrayList transforms) {
@@ -134,28 +138,37 @@ public class GameController : MonoBehaviour {
 		RaycastHit2D hit = fireRayCast (origin, projectileDirection);
 		if (hit) {
 			Debug.Log ("Hit " + hit.collider.name);
-			transforms.Add (hit.collider.transform);
+			//transforms.Add (hit.collider.transform);
 			Piece piece = hit.collider.transform.GetComponent<Piece> ();
 			if (piece.determineIfFatalHit(projectileDirection)) {
-				Debug.Log ("Piece killed");
-				//do nothing for now, will kill during the actual laser firing
+				//pieces marked for death will die the next time a laser intersects them
+				Debug.Log (piece.name + " marked for death");
+				piece.markedForDeath = true;
+				transforms.Add (hit.collider.transform.position);
 				return transforms;
 			}
 			if (piece.type == Piece.PieceType.Laser) {
-				//do nothing
+				transforms.Add (hit.collider.transform.position);
 				return transforms;
 			}
 			if (piece.type == Piece.PieceType.Splitter) {
 				Debug.Log ("Hit splitter");
 				//get a new, sub array of transforms as a split path, and add it into the main path array
 				float splitDirection = piece.determineSplitLaserPath(projectileDirection);
-				ArrayList splitPath = getLaserPath(hit.collider.transform, splitDirection, new ArrayList());
+				transforms.Add (hit.collider.transform.position);
+				ArrayList newSplitArrayList = new ArrayList();
+				newSplitArrayList.Add(hit.collider.transform.position);
+				ArrayList splitPath = getLaserPath(hit.collider.transform, splitDirection, newSplitArrayList);
 				Debug.Log ("Finished scoping split path");
 				transforms.Add (splitPath);
 			}
+			transforms.Add (hit.collider.transform.position);
 			float redirectedProjectile = piece.determineReflectedLaserPath(projectileDirection);
 			Debug.Log ("Got redirected projectile with angle: " + redirectedProjectile);
 			getLaserPath (hit.collider.transform, redirectedProjectile, transforms);
+		}
+		else {
+			transforms.Add (getScreenEdgeVector(origin, projectileDirection));
 		}
 		return transforms;
 	}
@@ -190,6 +203,30 @@ public class GameController : MonoBehaviour {
 			origin.x = origin.x - renderer.bounds.extents.x / 4;
 			Vector3 direction = new Vector3 (-Screen.width, origin.y, origin.z);
 			return Physics2D.Raycast (origin, direction, float.MaxValue);
+		}
+	}
+
+	Vector3 getScreenEdgeVector (Vector3 origin, float facing) {
+		if (Mathf.Abs (facing - EAST) < 2) {
+			Debug.Log ("Firing east");
+			//Facing in the positive X direction
+			Vector3 direction = new Vector3 (Screen.width, origin.y, origin.z);
+			return direction;
+		} else if (Mathf.Abs (facing - NORTH) < 2) {
+			Debug.Log ("Firing north");
+			//Facing in the positive Y direction
+			Vector3 direction = new Vector3 (origin.x, Screen.height, origin.z);
+			return direction;
+		} else if (Mathf.Abs (facing - SOUTH) < 2) {
+			//Facing in the negative Y direction
+			Vector3 direction = new Vector3 (origin.x, -Screen.height, origin.z);
+			return direction;
+		}
+		else {
+			Debug.Log ("Firing west");
+			//facing in the negative X direction
+			Vector3 direction = new Vector3 (-Screen.width, origin.y, origin.z);
+			return direction;
 		}
 	}
 

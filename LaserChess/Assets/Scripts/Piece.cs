@@ -10,7 +10,10 @@ public class Piece : MonoBehaviour {
 	public Sprite selectedTexture;
 	public bool isSelected;
 	public bool cannotMove;
+	public bool markedForDeath;
 	public string side;
+
+	public ParticleSystem explosionParticle;
 
 	private GameController chessBoard;
 	
@@ -41,7 +44,22 @@ public class Piece : MonoBehaviour {
 	}
 
 	public void kill() {
-		//kill
+		initExplosion ();
+		transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + 30);
+		Destroy (this);
+		Debug.Log ("killed");
+	}
+
+	public void initExplosion() {
+		ParticleSystem newParticleSystem = Instantiate(
+			explosionParticle,
+			transform.position,
+			Quaternion.identity
+			) as ParticleSystem;
+		Destroy(
+			newParticleSystem.gameObject,
+			newParticleSystem.startLifetime
+			);
 	}
 
 	//This method assumes that the incoming laser is not fatal, so do not call this method
@@ -52,7 +70,7 @@ public class Piece : MonoBehaviour {
 		float facing = transform.rotation.eulerAngles.z;
 		if (type == PieceType.Square) {
 			Debug.Log ("Square detected, reflecting back");
-			return ((int)(incomingDirection - 180) % 360);
+			return ((int)(incomingDirection + 180) % 360);
 		}
 		if (type == PieceType.Triangle) {
 			if (Mathf.Abs(((int)(incomingDirection + 180) % 360) - facing) < 2) {
@@ -101,7 +119,7 @@ public class Piece : MonoBehaviour {
 			}
 			break;
 		case (PieceType.Square):
-			if (Mathf.Abs(((incomingDirection - 180) % 360) - facing) > 2) {
+			if (Mathf.Abs(((incomingDirection + 180) % 360) - facing) > 2) {
 				//Incoming laser isn't directly opposite the mirror, so it dies
 				return true;
 			}
@@ -119,6 +137,19 @@ public class Piece : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		LineRenderer beam = collider.GetComponent<LineRenderer> ();
+		if (beam != null) {
+			//a laser has intersected the piece
+			if (markedForDeath) {
+				this.kill();
+			}
+		}
+		else {
+			Debug.Log ("a beam did not connect");
+		}
 	}
 
 	void OnMouseDown () {
