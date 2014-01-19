@@ -57,7 +57,7 @@ public class DrawLine : MonoBehaviour {
 				//i--;
 				continue;
 			}
-			if (fireEvent.counter  < fireEvent.dist) {
+			if (fireEvent.counter  < fireEvent.dist && fireEvent.lineRenderer != null) {
 				fireEvent.counter += 1f / lineDrawSpeed;
 				float x = fireEvent.counter;
 				Vector3 pointA = fireEvent.origin;
@@ -97,6 +97,7 @@ public class DrawLine : MonoBehaviour {
 			this.transforms = transforms;
 			this.firing = true;
 			GameObject renderer = (GameObject)Instantiate(beam, origin, Quaternion.identity);
+			Destroy (renderer, 5f);
 			lineRenderer = renderer.GetComponent<LineRenderer>();
 			lineRenderer.SetPosition (0, origin);
 			lineRenderer.SetWidth (0.45f, 0.45f);

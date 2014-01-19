@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 
 	private System.Collections.ArrayList brownPieces;
 	*/
+
 	private static float NORTH = 0f;
 	private static float WEST = 90f;
 	private static float SOUTH = 180f;
@@ -20,6 +21,7 @@ public class GameController : MonoBehaviour {
 	private ArrayList validGrids;
 
 	private bool laserFiring;
+	public bool playerCantSelect;
 
 	GameObject brownLaser;
 	GameObject tanLaser;
@@ -32,11 +34,13 @@ public class GameController : MonoBehaviour {
 		selectedPiece = null;
 		validGrids = new ArrayList ();
 		laserFiring = false;
+		playerCantSelect = false;
 		brownLaser = GameObject.Find ("brownLaser");
+		tanLaser = GameObject.Find ("tanLaser");
 
 		beam = GameObject.Find ("brownBeam").GetComponent<DrawLine> ();
 
-		fireLaser ();
+		//fireLaser ();
 		/*
 		tanPieces = new ArrayList ();
 		brownPieces = new ArrayList ();
@@ -123,9 +127,16 @@ public class GameController : MonoBehaviour {
 	//Fires the laser by traversing a list of transform objects. The list can be multiple levels deep, with each 
 	//level being a split-path created from a splitter piece.
 	void fireLaser() {
+		GameObject laser;
+		if (tag.Equals ("TanTurn")) {
+			laser = tanLaser;
+		}
+		else {
+			laser = brownLaser;
+		}
 		ArrayList startingTransforms = new ArrayList ();
-		startingTransforms.Add (brownLaser.transform.position);
-		ArrayList transforms = getLaserPath (brownLaser.transform, brownLaser.transform.rotation.eulerAngles.z, startingTransforms);
+		startingTransforms.Add (laser.transform.position);
+		ArrayList transforms = getLaserPath (laser.transform, laser.transform.rotation.eulerAngles.z, startingTransforms);
 		beam.fireLaser (transforms);
 	}
 
@@ -179,21 +190,21 @@ public class GameController : MonoBehaviour {
 			//offset the origin from the originating piece so the raycast doesn't hit it
 			origin.x = origin.x + renderer.bounds.extents.x / 4;
 			Vector3 direction = new Vector3 (Screen.width, origin.y, origin.z);
-			return Physics2D.Raycast (origin, direction, float.MaxValue);
+			return Physics2D.Raycast (origin, direction, float.MaxValue, ~(1 << 8));
 		} else if (Mathf.Abs (facing - NORTH) < 2) {
 			Debug.Log ("Firing north");
 			//Facing in the positive Y direction
 			//offset the origin from the originating piece so the raycast doesn't hit it
 			origin.y = origin.y + renderer.bounds.extents.y / 4;
 			Vector3 direction = new Vector3 (origin.x, Screen.height, origin.z);
-			return Physics2D.Raycast (origin, direction, float.MaxValue);
+			return Physics2D.Raycast (origin, direction, float.MaxValue, ~(1 << 8));
 		} else if (Mathf.Abs (facing - SOUTH) < 2) {
 			Debug.Log ("Firing south");
 			//Facing in the negative Y direction
 			//offset the origin from the originating piece so the raycast doesn't hit it
 			origin.y = origin.y - renderer.bounds.extents.y / 4;
 			Vector3 direction = new Vector3 (origin.x, -Screen.height, origin.z);
-			return Physics2D.Raycast (origin, direction, float.MaxValue);
+			return Physics2D.Raycast (origin, direction, float.MaxValue, ~(1 << 8));
 		}
 		else {
 			Debug.Log ("Firing west");
@@ -201,7 +212,7 @@ public class GameController : MonoBehaviour {
 			//offset the origin from the originating piece so the raycast doesn't hit it
 			origin.x = origin.x - renderer.bounds.extents.x / 4;
 			Vector3 direction = new Vector3 (-Screen.width, origin.y, origin.z);
-			return Physics2D.Raycast (origin, direction, float.MaxValue);
+			return Physics2D.Raycast (origin, direction, float.MaxValue, ~(1 << 8));
 		}
 	}
 
@@ -229,6 +240,32 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void signalTurnOver() {
+		Debug.Log ("Signal turn over");
+		StartCoroutine ("waitForLaser");
+		Debug.Log ("Laser firing over");
+	}
+
+	IEnumerator waitForLaser() {
+		fireLaser ();
+		yield return new WaitForSeconds(5);
+		transitionTurns();
+	}
+
+	private void transitionTurns() {
+		if (tag.Equals("TanTurn")) {
+			tag = "BrownTurn";
+		}
+		else {
+			tag = "TanTurn";
+		}
+		playerCantSelect = false;
+	}
+
+	public void gameOver() {
+		playerCantSelect = true;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -236,6 +273,9 @@ public class GameController : MonoBehaviour {
 
 	void OnMouseDown ()
 	{
+		if (playerCantSelect) {
+			return;
+		}
 		Vector2 grid = getCenterOfGridAtMouse ();
 		if (selectedPiece != null) {
 			if (selectedPiece.cannotMove) {

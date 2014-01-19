@@ -9,11 +9,18 @@ public class Rotate : MonoBehaviour {
     //will store the original position 
     private Quaternion orgionalPosition;
 
-
+	private GameController controller;
+	private string side;
+	private Piece piece;
 
     void Start()
     {
         orgionalPosition = transform.rotation;
+
+		GameObject render = GameObject.Find ("0 - Chessboard");
+		controller = render.GetComponent<GameController> ();
+		this.piece = GetComponent<Piece> ();
+		this.side = piece.side;
     }
 
 	// Update is called once per frame
@@ -53,6 +60,17 @@ public class Rotate : MonoBehaviour {
 
     void OnMouseDrag()
     {
+		if (controller.playerCantSelect) {
+			return;
+		}
+		string currentTurn = controller.tag;
+		if (currentTurn.Equals("TanTurn") && side.Equals ("Brown")) {
+			return;
+		}
+		if (currentTurn.Equals ("BrownTurn") && side.Equals ("Tan")) {
+			return;
+		}
+
             //Debug.Log(Input.GetAxis("Mouse X"));
            // Debug.Log("above is the X axis");
            // Debug.Log(Input.GetAxis("Mouse Y"));
@@ -80,7 +98,7 @@ public class Rotate : MonoBehaviour {
             float xLocal = (transform.position.x - rawX);
             float yLocal = (transform.position.y - rawY);
 
-            Debug.Log("xDrag: " + xDrag + " Y: " + yDrag);
+            //Debug.Log("xDrag: " + xDrag + " Y: " + yDrag);
             //Vector3 Zvect = new Vector3(0f, 0f, zCoord);
             // transform.Rotate(0f, 0f, xLocal, Space.Self);
             //transform.Rotate(xDrag , 0 , yDrag );
@@ -100,6 +118,17 @@ public class Rotate : MonoBehaviour {
     //Will execute when the user stops rotating the object
     void OnMouseUp()
     {
+		if (controller.playerCantSelect) {
+			return;
+		}
+		string currentTurn = controller.tag;
+		if (currentTurn.Equals("TanTurn") && side.Equals ("Brown")) {
+			return;
+		}
+		if (currentTurn.Equals ("BrownTurn") && side.Equals ("Tan")) {
+			return;
+		}
+
         //The Z coordinate the user left the object at
         float UserZ = transform.localEulerAngles.z;
 
@@ -121,12 +150,41 @@ public class Rotate : MonoBehaviour {
             transform.localEulerAngles = new Vector3(0, 0, 270);
         }
 
-        orgionalPosition = transform.rotation;
+		Vector3 pointer = Camera.main.ScreenToWorldPoint(Input.mousePosition );
+		
+		float rawX = pointer.x;
+		float rawY = pointer.y;
+
+		float pieceX = renderer.bounds.center.x;
+		float pieceY = renderer.bounds.center.y;
+
+		float width = renderer.bounds.extents.x;
+		float height = renderer.bounds.extents.y;
+		if (rawX > pieceX - width && rawX < pieceX + width && rawY > pieceY - height && rawY < pieceY + height) {
+			piece.deselectPiece();
+			return;
+		}
+		else {
+			piece.deselectPiece();
+			controller.signalTurnOver();
+		}
+
     }
 
     //The User stopped dragging the piece right above the piece, thus cancelling rotation
     void OnMouseUpAsButton()
     {
+		if (controller.playerCantSelect) {
+			return;
+		}
+		string currentTurn = controller.tag;
+		if (currentTurn.Equals("TanTurn") && side.Equals ("Brown")) {
+			return;
+		}
+		if (currentTurn.Equals ("BrownTurn") && side.Equals ("Tan")) {
+			return;
+		}
+
         transform.rotation = orgionalPosition;
     }
 
